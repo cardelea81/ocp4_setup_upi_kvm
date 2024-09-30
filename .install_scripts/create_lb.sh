@@ -19,10 +19,10 @@ virt-customize -a "${VM_DIR}/${CLUSTER_NAME}-lb.qcow2" \
     --copy-in install_dir/bootstrap.ign:/opt/ --copy-in install_dir/master.ign:/opt/ --copy-in install_dir/worker.ign:/opt/ \
     --copy-in "${CACHE_DIR}/${IMAGE}":/opt/ --copy-in tmpws.service:/etc/systemd/system/ \
     --copy-in haproxy.cfg:/etc/haproxy/ \
-    --run-command "useradd calin && echo calin123!| passwd --stdin calin" \
+    --run-command "useradd core && echo core123!| passwd --stdin core" \
     --run-command "echo root123!| passwd --stdin root" \
     --run-command "yum install -y mc vim net-tools" \
-    --run-command "echo 'calin  ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/calin" \
+    --run-command "echo 'core  ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/core" \
     --run-command "systemctl daemon-reload" --run-command "systemctl enable tmpws.service" || \
     err "Setting up Loadbalancer VM image ${VM_DIR}/${CLUSTER_NAME}-lb.qcow2 failed"
 

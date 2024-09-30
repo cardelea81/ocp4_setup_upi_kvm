@@ -19,16 +19,16 @@ export N_MAST="3"
 export N_WORK="2"
 
 # --master-cpu N(vCPU)
-export MAS_CPU="4"
+export MAS_CPU="8"
 
 # --master-mem SIZE(MB)
 export MAS_MEM="16000"
 
 # --worker-cpu N(vCPU)
-export WOR_CPU="8"
+export WOR_CPU="12"
 
 # --worker-mem SIZE(MB)
-export WOR_MEM="16000"
+export WOR_MEM="32000"
 
 # --bootstrap-cpu N(vCPU)
 export BTS_CPU="10"
@@ -49,7 +49,7 @@ export DEF_LIBVIRT_NET="default"
 export VIR_NET_OCT=""
 
 # -c, --cluster-name NAME
-export CLUSTER_NAME="ocp4"
+export CLUSTER_NAME="ocp"
 
 # -d, --cluster-domain DOMAIN
 export BASE_DOM="local"

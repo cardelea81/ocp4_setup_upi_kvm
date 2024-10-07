@@ -11,3 +11,6 @@ for node in $(oc get nodes -l node-role.kubernetes.io/worker -o jsonpath='{.item
 echo "Shut down all of the nodes in the cluster"
 for node in $(oc get nodes -o jsonpath='{.items[*].metadata.name}'); do oc debug node/${node} -- chroot /host shutdown -h 1; done 
 
+echo "Stop the OCP VM's"
+for i in $(virsh list --all | awk '{print $2}'); do virsh shutdown $i ; done
+

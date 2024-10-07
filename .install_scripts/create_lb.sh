@@ -21,6 +21,7 @@ virt-customize -a "${VM_DIR}/${CLUSTER_NAME}-lb.qcow2" \
     --copy-in haproxy.cfg:/etc/haproxy/ \
     --run-command "useradd core && echo core123!| passwd --stdin core" \
     --run-command "echo root123!| passwd --stdin root" \
+    --run-command "timedatectl set-timezone Europe/Prague" \
     --run-command "yum install -y mc vim net-tools" \
     --run-command "echo 'core  ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/core" \
     --run-command "systemctl daemon-reload" --run-command "systemctl enable tmpws.service" || \

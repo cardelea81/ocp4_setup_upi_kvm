@@ -21,7 +21,9 @@ virt-customize -a "${VM_DIR}/${CLUSTER_NAME}-lb.qcow2" \
     --copy-in haproxy.cfg:/etc/haproxy/ \
     --run-command "useradd core && echo core123!| passwd --stdin core" \
     --run-command "echo root123!| passwd --stdin root" \
-    --run-command "yum install -y mc vim net-tools" \
+    --timezone Europe/Prague \
+    --run-command "yum update -y" \
+    --run-command "yum install -y mc vim nmap tcpdump net-tools" \
     --run-command "echo 'core  ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/core" \
     --run-command "systemctl daemon-reload" --run-command "systemctl enable tmpws.service" || \
     err "Setting up Loadbalancer VM image ${VM_DIR}/${CLUSTER_NAME}-lb.qcow2 failed"

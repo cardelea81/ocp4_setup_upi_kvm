@@ -1,0 +1,20 @@
+#Clustrer debug 
+
+
+# Check  auth
+
+oc get pods -n openshift-console
+oc get pods -n openshift-authentication
+oc get pods -n openshift-console-operator
+oc get pods -n openshift-console-user-settings
+#
+oc delete --all pods -n openshift-console-operator
+oc delete --all pods -n openshift-authentication
+oc delete --all pods -n openshift-console                             
+oc delete --all pods -n openshift-console-user-settings 
+# 
+oc get pods -n openshift-console
+oc get pods -n openshift-console-operator
+oc get pods -n openshift-authentication
+oc get pods -n openshift-console-user-settings
+#oc logs -p {pod_name} -n {namespace} -c {container name} 

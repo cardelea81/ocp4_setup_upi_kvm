@@ -17,7 +17,6 @@ virt-install --name ${CLUSTER_NAME}-bootstrap \
   --disk "${VM_DIR}/${CLUSTER_NAME}-bootstrap.qcow2,size=50" --ram ${BTS_MEM} --cpu host --vcpus ${BTS_CPU} \
   --os-type linux --os-variant rhel9.0 \
   --network network=${VIR_NET},model=virtio --noreboot --noautoconsole \
-  --timezone Europe/Prague \
   --location rhcos-install/ \
   --extra-args "nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda ${RHCOS_I_ARG}=http://${LBIP}:${WS_PORT}/${IMAGE} coreos.inst.ignition_url=http://${LBIP}:${WS_PORT}/bootstrap.ign" > /dev/null || err "Creating boostrap vm failed"; ok
 
@@ -28,7 +27,6 @@ virt-install --name ${CLUSTER_NAME}-master-${i} \
 --disk "${VM_DIR}/${CLUSTER_NAME}-master-${i}.qcow2,size=50" --ram ${MAS_MEM} --cpu host --vcpus ${MAS_CPU} \
 --os-type linux --os-variant rhel7.0 \
 --network network=${VIR_NET},model=virtio --noreboot --noautoconsole \
---timezone Europe/Prague \
 --location rhcos-install/ \
 --extra-args "nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda ${RHCOS_I_ARG}=http://${LBIP}:${WS_PORT}/${IMAGE} coreos.inst.ignition_url=http://${LBIP}:${WS_PORT}/master.ign" > /dev/null || err "Creating master-${i} vm failed "; ok
 done
@@ -40,7 +38,6 @@ echo -n "====> Creating Worker-${i} VM: "
   --disk "${VM_DIR}/${CLUSTER_NAME}-worker-${i}.qcow2,size=50" --ram ${WOR_MEM} --cpu host --vcpus ${WOR_CPU} \
   --os-type linux --os-variant rhel7.0 \
   --network network=${VIR_NET},model=virtio --noreboot --noautoconsole \
-  --timezone Europe/Prague
   --location rhcos-install/ \
   --extra-args "nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda ${RHCOS_I_ARG}=http://${LBIP}:${WS_PORT}/${IMAGE} coreos.inst.ignition_url=http://${LBIP}:${WS_PORT}/worker.ign" > /dev/null || err "Creating worker-${i} vm failed "; ok
 done

@@ -1,7 +1,9 @@
 #Start VM's cluster
 
 #!/bin/bash
-echo ""
+export /$USER/ocp4_cluster_ocp/install_dir/auth/kubeconfig
+echo "Open Firewall"
+/$USER/ocp4_cluster_ocp/./expose_cluster.sh --method firewalld
 echo "Basic cluster checks "
 oc get nodes -l node-role.kubernetes.io/master
 oc get nodes -l node-role.kubernetes.io/worker

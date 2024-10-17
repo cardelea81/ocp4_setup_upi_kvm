@@ -1,3 +1,7 @@
+#!/bin/bash
+
+export KUBECONFIG=/$USER/ocp4_cluster_ocp/install_dir/auth/kubeconfig
+
 #ocp console 
 
 oc get all -n openshift-ingress

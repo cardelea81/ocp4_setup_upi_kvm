@@ -62,13 +62,13 @@ export VM_DIR="/var/lib/libvirt/images"
 
 # -s, --setup-dir DIR
 # By default set to /root/ocp4_cluster_$CLUSTER_NAME
-export SETUP_DIR="/home/hudson"
+export SETUP_DIR="/hudson/ocp4_cluster_ocp"
 
 # -x, --cache-dir DIR
-export CACHE_DIR="/home/hudson/ocp4_downloads"
+export CACHE_DIR="/hudson/ocp4_downloads"
 
 # -p, --pull-secret FILE
-export PULL_SEC_F="/home/hudson/pull-secret"
+export PULL_SEC_F="/hudson/pull-secret"
 
 # --ssh-pub-key-file
 # By default a new ssh key pair is generated in $SETUP_DIR

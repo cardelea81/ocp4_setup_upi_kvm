@@ -1,0 +1,17 @@
+#jenkins master build for OCP storage nodes only 
+
+pipeline {
+  agent any
+
+  stages {
+        stage('Build') {
+          steps {
+            echo 'Building..'
+            sshagent(['production']) {
+                sh "ssh  -t -o StrictHostKeyChecking=no -l hudson ocp.lab.dev.example.com 'sudo /hudson/ocp4_setup_upi_kvm/jm/storage-build.sh'"
+            }
+         }
+      }
+   }
+}
+

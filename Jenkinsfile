@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+   agent { node { label 'ocp' } }
 
    stages {
       stage('Clone Git Repository') {

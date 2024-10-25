@@ -5,18 +5,12 @@ sudo /usr/bin/sed -i.bak '/storage-*/d' /etc/hosts
 #Destroy old cluster
 sudo chown -R hudson:hudson /hudson
 sudo /hudson/ocp4_setup_upi_kvm/ocp4_setup_upi_kvm.sh --cluster-name ocp --cluster-domain lab.example,com --destroy -y
+sudo /hudson/ocp4_setup_upi_kvm/storage-destroy.sh
 
 #Build the new ocp cluster
 sudo chown -R hudson:hudson /hudson
 sudo /hudson/ocp4_setup_upi_kvm/ocp4_setup_upi_kvm.sh --cluster-name ocp --cluster-domain lab.example.com --ocp-version 4.17.0 --pull-secret /hudson/pull_secret.txt -y
 
-#Change /hudson owner
-sudo chown -R hudson:hudson /hudson
-#Remove old storage nodes
-sudo for i in $(virsh list --all | awk '{print $2}' | grep storage); do virsh destroy $i ; done
-sudo for i in $(virsh list --all | awk '{print $2}' | grep storage); do virsh undefine $i --remove-all-storage ; done
-
-#Storage nodes
 
 source /hudson/ocp4_cluster_ocp/env
 INSTDIR=/hudson/ocp4_cluster_ocp

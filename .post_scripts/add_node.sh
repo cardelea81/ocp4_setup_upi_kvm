@@ -161,7 +161,7 @@ echo -n "====> Creating ${NODE} VM: "
   virt-install --name ${CLUSTER_NAME}-${NODE} \
   --disk "${VM_DIR}/${CLUSTER_NAME}-${NODE}.qcow2,size=50" ${ADD_DISK} \
   --ram ${MEM} --cpu host --vcpus ${CPU} \
-  --os-type linux --os-variant rhel7-unknown \
+  --os-type linux --os-variant rhel9.0 \
   --network network=${VIR_NET},model=virtio --noreboot --noautoconsole \
   --location rhcos-install/ \
   --extra-args "nomodeset rd.neednet=1 coreos.inst=yes coreos.inst.install_dev=vda ${RHCOS_I_ARG}=http://${LBIP}:${WS_PORT}/${IMAGE} coreos.inst.ignition_url=http://${LBIP}:${WS_PORT}/worker.ign" > /dev/null || err "Creating ${NODE} vm failed "; ok

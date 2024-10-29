@@ -12,7 +12,7 @@ sudo chown -R hudson:hudson /hudson
 sudo /hudson/ocp4_setup_upi_kvm/ocp4_setup_upi_kvm.sh --cluster-name ocp --cluster-domain lab.example.com --ocp-version 4.17.0 --pull-secret /hudson/pull_secret.txt -y
 source /hudson/ocp4_cluster_ocp/env
 INSTDIR=/hudson/ocp4_cluster_ocp
-export $INSTDIR
+export $INSTDIR="/hudson/ocp4_cluster_ocp"
 #Change /hudson owner
 sudo chown -R hudson:hudson /hudson
 #storage-1
@@ -36,8 +36,13 @@ for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr
 sleep 60
 source /hudson/ocp4_cluster_ocp/env
 
-for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
-
+#for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
+while true; do
+  for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do
+    /usr/local/bin/oc adm certificate approve $x;
+  done;
+  sleep 5;
+done
 #Label the new nodes
 /usr/local/bin/oc label node storage-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node storage-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''

@@ -32,18 +32,13 @@ export BASE_DOM="lab.example.com"
 
 
 #nodes CSR and approve them 
-for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
+
+seq 200 | for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
 sleep 60
 source /hudson/ocp4_cluster_ocp/env
 
-#for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
-while true; do
-  for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do
-    /usr/local/bin/oc adm certificate approve $x;
-  done;
-  sleep 5;
-done
-#Label the new nodes
+
+
 /usr/local/bin/oc label node storage-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node storage-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node storage-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''

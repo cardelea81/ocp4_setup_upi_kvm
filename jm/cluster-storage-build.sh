@@ -34,7 +34,7 @@ export BASE_DOM="lab.example.com"
 #nodes CSR and approve them 
 
 seq 200 | for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'); do /usr/local/bin/oc adm certificate approve $x; done
-sleep 60
+sleep 20m
 source /hudson/ocp4_cluster_ocp/env
 
 

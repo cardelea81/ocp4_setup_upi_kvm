@@ -1,0 +1,20 @@
+apiVersion: "local.storage.openshift.io/v1"
+kind: "LocalVolume"
+metadata:
+  name: "local-disks-fs"
+  namespace: "local-storage"
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - worker-1.${CLUSTER_NAME}.${BASE_DOM}
+          - worker-2.${CLUSTER_NAME}.${BASE_DOM}
+          - worker-3.${CLUSTER_NAME}.${BASE_DOM}
+  workerClassDevices:
+    - workerClassName: "lo-fs"
+      volumeMode: Filesystem
+      devicePaths:
+        - /dev/vdb

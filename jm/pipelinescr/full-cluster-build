@@ -1,25 +1,30 @@
 pipeline {
-   agent any
+    agent { node { label 'test' } }
+    stages {
+        stage("Clone Git Repository") {
+            steps {
+                dir("/hudson/ocp4_setup_upi_kvm.git") {
+                    git(
+                        url: "https://github.com/cardelea81/ocp4_setup_upi_kvm.git",
+                        branch: "main",
+                        changelog: true,
+                        poll: true
+                    )
+                }
+            }
+        }
+    }
 
-   stages {
-      stage('Clone Git Repository') {
-         steps {
-            git(
-               url: "https://github.com/cardelea81/ocp4_setup_upi_kvm.git",
-               branch: "main",
-               changelog: true,
-               poll: true
-          )
-         }
-      }
+
+
       stage('Build') {
          steps {
             echo 'Building new OCP cluster'
             sshagent(['production']) {
-                sh "ssh  -t -o StrictHostKeyChecking=no -l hudson ocp.lab.dev.example.com 'sudo /hudson/ocp4_setup_upi_kvm/jm/cluster-storage-build.sh'"
+                sh "ssh  -t -o StrictHostKeyChecking=no -l hudson 192.168.2.150 'sudo /hudson/ocp4_setup_upi_kvm/jm/cluster-storage-build.sh'"
           }
          }
       }
    }
-}
+
 

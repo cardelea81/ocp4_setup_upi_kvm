@@ -10,9 +10,9 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - worker-1.${CLUSTER_NAME}.${BASE_DOM}
-          - worker-2.${CLUSTER_NAME}.${BASE_DOM}
-          - worker-3.${CLUSTER_NAME}.${BASE_DOM}
+          - worker-1.ocp.lab.example.com
+          - worker-2.ocp.lab.example.com
+          - worker-3.ocp.lab.example.com
   storageClassDevices:
     - storageClassName: "lo-blk"
       volumeMode: Block

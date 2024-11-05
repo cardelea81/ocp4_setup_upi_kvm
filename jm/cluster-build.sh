@@ -19,11 +19,18 @@ seq 200 | for x in $(/usr/local/bin/oc get csr | grep Pending | awk '{print $1}'
 sleep 20m
 source /hudson/ocp4_cluster_ocp/env
 
-
+#Label worker nodes for storage
 
 /usr/local/bin/oc label node worker-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node worker-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node worker-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 
 sudo chown -R hudson:hudson /hudson
+
+#Remove worker spec from masters/control-plane
+/usr/local/bin/oc patch scheduler cluster --type merge -p '{"spec":{"mastersSchedulable":false}}'
+
+#The cluster can be unrecoverable when the upgrade of control plane nodes starts
+/usr/local/bin/oc patch mcp master --type=merge -p "{\"spec\":{\"maxUnavailable\": 12 }}"
+/usr/local/bin/oc patch mcp worker --type=merge -p "{\"spec\":{\"maxUnavailable\": 13 }}"
 

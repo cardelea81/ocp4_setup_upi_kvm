@@ -38,9 +38,15 @@ sleep 20m
 source /hudson/ocp4_cluster_ocp/env
 
 
-
+#Label worker nodes for storage
 /usr/local/bin/oc label node storage-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node storage-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 /usr/local/bin/oc label node storage-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+
+#Remove worker spec from masters/control-plane 
+/usr/local/bin/oc patch scheduler cluster --type merge -p '{"spec":{"mastersSchedulable":false}}'
+#The cluster can be unrecoverable when the upgrade of control plane nodes starts
+/usr/local/bin/oc patch mcp master --type=merge -p "{\"spec\":{\"maxUnavailable\": 12 }}"
+/usr/local/bin/oc patch mcp worker --type=merge -p "{\"spec\":{\"maxUnavailable\": 13 }}"
 
 sudo chown -R hudson:hudson /hudson

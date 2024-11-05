@@ -13,8 +13,8 @@ spec:
           - worker-1.ocp.lab.example.com
           - worker-2.ocp.lab.example.com
           - worker-3.ocp.lab.example.com
-  workerClassDevices:
-    - workerClassName: "lo-fs"
+  storageClassDevices:
+    - storageClassName: "lo-fs"
       volumeMode: Filesystem
       devicePaths:
         - /dev/vdb

@@ -37,6 +37,7 @@ echo -n "====> Creating Worker-${i} VM: "
   virt-install --name ${CLUSTER_NAME}-worker-${i} \
   --disk "${VM_DIR}/${CLUSTER_NAME}-worker-${i}.qcow2,size=50" --ram ${WOR_MEM} --cpu host --vcpus ${WOR_CPU} \
   --disk "${VM_DIR}/${CLUSTER_NAME}-worker-data-${i}.qcow2,size=100" \
+  --disk "${VM_DIR}/${CLUSTER_NAME}-worker-data22-${i}.qcow2,size=100" \
   --os-type linux --os-variant rhel9.0 \
   --network network=${VIR_NET},model=virtio --noreboot --noautoconsole \
   --location rhcos-install/ \

@@ -25,10 +25,10 @@ export MAS_CPU="12"
 export MAS_MEM="32000"
 
 # --worker-cpu N(vCPU)
-export WOR_CPU="8"
+export WOR_CPU="24"
 
 # --worker-mem SIZE(MB)
-export WOR_MEM="16000"
+export WOR_MEM="75000"
 
 # --bootstrap-cpu N(vCPU)
 export BTS_CPU="10"

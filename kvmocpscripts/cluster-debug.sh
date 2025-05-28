@@ -73,4 +73,13 @@ for i in $(oc get all -n openshift-console-operator  | grep pod/*); do oc logs -
 echo 'Logs from openshift-console-user-settings'
 for i in $(oc get all -n openshift-console-user-settings  | grep pod/*); do oc logs -n openshift-console-user-settings $i; done
 
+#Delete catalog-operator pods
+oc -n openshift-marketplace delete catsrc --all
+oc delete pod -l app=catalog-operator -n openshift-operator-lifecycle-manager
+
+#Cleanup Failed pods from all namespaces
+
+oc delete pod --field-selector=status.phase==Failed --all-namespaces
+
+
 #oc logs -p {pod_name} -n {namespace} -c {container name} 

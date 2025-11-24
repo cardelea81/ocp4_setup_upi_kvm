@@ -49,7 +49,7 @@ export DEF_LIBVIRT_NET="default"
 export VIR_NET_OCT=""
 
 # -c, --cluster-name NAME
-export CLUSTER_NAME="ocp"
+export CLUSTER_NAME="ocp4"
 
 # -d, --cluster-domain DOMAIN
 export BASE_DOM="local"

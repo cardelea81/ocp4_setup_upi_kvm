@@ -21,16 +21,27 @@ source /hudson/ocp4_cluster_ocp/env
 
 #Label worker nodes for storage
 
-/usr/local/bin/oc label node worker-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
-/usr/local/bin/oc label node worker-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
-/usr/local/bin/oc label node worker-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+#/usr/local/bin/oc label node worker-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+#/usr/local/bin/oc label node worker-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+#/usr/local/bin/oc label node worker-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 
 sudo chown -R hudson:hudson /hudson
 
 #Remove worker spec from masters/control-plane
-/usr/local/bin/oc patch scheduler cluster --type merge -p '{"spec":{"mastersSchedulable":false}}'
+#/usr/local/bin/oc patch scheduler cluster --type merge -p '{"spec":{"mastersSchedulable":false}}'
 
 #The cluster can be unrecoverable when the upgrade of control plane nodes starts
-/usr/local/bin/oc patch mcp master --type=merge -p "{\"spec\":{\"maxUnavailable\": 12 }}"
-/usr/local/bin/oc patch mcp worker --type=merge -p "{\"spec\":{\"maxUnavailable\": 13 }}"
+#/usr/local/bin/oc patch mcp master --type=merge -p "{\"spec\":{\"maxUnavailable\": 12 }}"
+#/usr/local/bin/oc patch mcp worker --type=merge -p "{\"spec\":{\"maxUnavailable\": 13 }}"
+
+# Label master nodes for OpenShift Container Storage
+oc label node master-1.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
+oc label node master-2.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
+oc label node master-3.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
+
+# Keep masters schedulable (DO NOT run the mastersSchedulable:false patch)
+
+# Safe maxUnavailable for 3-node cluster (1 at a time)
+oc patch mcp master --type=merge -p '{"spec":{"maxUnavailable": 1}}'
+
 

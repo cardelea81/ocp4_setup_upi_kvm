@@ -35,9 +35,9 @@ sudo chown -R hudson:hudson /hudson
 #/usr/local/bin/oc patch mcp worker --type=merge -p "{\"spec\":{\"maxUnavailable\": 13 }}"
 
 # Label master nodes for OpenShift Container Storage
-oc label node master-1.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
-oc label node master-2.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
-oc label node master-3.ocp.lab.example.com cluster.ocs.openshift.io/openshift-storage=''
+oc label node master-1.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+oc label node master-2.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
+oc label node master-3.${CLUSTER_NAME}.${BASE_DOM} cluster.ocs.openshift.io/openshift-storage=''
 
 # Keep masters schedulable (DO NOT run the mastersSchedulable:false patch)
 
